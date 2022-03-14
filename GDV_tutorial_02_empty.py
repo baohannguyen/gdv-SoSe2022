@@ -1,9 +1,11 @@
 import cv2
 
 # TODO load images in grey and color
+img = cv2.imread("images/logo.png")
 
 # TODO do some print out about the loaded data
-
+print(img)
+# uint8 = unsigned integer 8bit
 
 # TODO Continue with the color image or the grayscale image
 
