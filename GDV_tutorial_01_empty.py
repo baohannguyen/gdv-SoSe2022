@@ -14,16 +14,17 @@ print(cv2.__version__)
 # cv2.IMREAD_COLOR      - If set, always convert image to the 3 channel BGR
 #                         color image.
 img = cv2.imread("images/logo.png", cv2.IMREAD_COLOR)
-# in der Klammer werden die Werte eingegeben
+# in der Klammer werden die Werte eingegeben (Name des Bildes)
 height = 300
 width = 200
 newSize = (height, width)
 img = cv2.resize(img, newSize)
+# Bild bekommt eine neue Größe
 
 img = cv2.rotate(img, ROTATE_90_COUNTERCLOCKWISE)
 # Bild wird um 90 Grad rotiert
 
-img = cv2.imwrite()
+# img = cv2.imwrite()
 
 # TODO resize image with 'resize'
 
