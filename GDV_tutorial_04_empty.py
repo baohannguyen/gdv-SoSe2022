@@ -1,6 +1,6 @@
 import numpy as np
 import cv2
-
+# Dasselbe wie in tut03 aber nur mit einer Video-Datei
 # TODO open a video file
 
 # TODO get camera image parameters from get()

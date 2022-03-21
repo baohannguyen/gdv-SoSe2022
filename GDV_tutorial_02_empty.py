@@ -1,4 +1,6 @@
+import numpy as np
 import cv2
+
 
 # TODO load images in grey and color
 img_color = cv2.imread("images/logo.png", cv2.IMREAD_COLOR)
@@ -37,7 +39,9 @@ print(img.shape)
 # TODO copy one part of an image into another one
 # : = von ... bis
 letters = img[30:105, 5:130]
-img[115:200, 150:275] = letters
+# Bild wird geschnitten
+img[115:190, 150:275] = letters
+# Bild wird hinzugefüt
 # TODO save image
 
 # TODO show the image
