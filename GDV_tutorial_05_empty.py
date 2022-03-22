@@ -2,11 +2,13 @@ import cv2
 import math
 import operator
 
-# TODO capture webcam image
+# capture webcam image
+cap = cv2.VideoCapture(0)
 
-
-# TODO get camera image parameters from get()
-
+# get camera image parameters from get()
+width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
+height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
+print(width, height)
 
 # TODO create helper variables for drawing and writing text
 # thickness

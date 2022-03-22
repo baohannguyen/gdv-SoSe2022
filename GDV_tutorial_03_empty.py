@@ -9,7 +9,6 @@ width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
 height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
 print(width, height)
 
-
 # create a window for the video
 title = "Video-Webcam"
 cv2.namedWindow(title, cv2.WINDOW_FREERATIO)
@@ -33,3 +32,5 @@ while True:
         break
 
 # TODO release the video capture object and window
+cap.release()
+cv2.destroyAllWindows()
