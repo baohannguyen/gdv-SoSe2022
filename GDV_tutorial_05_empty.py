@@ -8,12 +8,11 @@ cap = cv2.VideoCapture(0)
 # get camera image parameters from get()
 width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
 height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
-codec = int(cap.get(cv2.cv2.CAP_PROP_CODEC_PIXEL_FORMAT))
-print(width, height, codec)
+print(width, height)
 
 # TODO create helper variables for drawing and writing text
 # thickness
-thick = 10
+thick = 15
 thin = 3
 
 # color
@@ -32,7 +31,7 @@ font = cv2.FONT_HERSHEY_SIMPLEX
 
 # def steht für eine Funktion
 def circle_path(t, scale, offset):
-    res = (int(scale*math.cos(t) + offset), int(scale*math.sin(t) + offset))
+    res = (int(scale*math.cos(t)+offset), int(scale*math.sin(t)+offset))
     return res
 
 
@@ -85,4 +84,3 @@ while True:
 
 # TODO release the video capture object and window
 cap.release()
-cv2.destroyAllWindows()
