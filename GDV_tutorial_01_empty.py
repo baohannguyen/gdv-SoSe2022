@@ -5,7 +5,7 @@ from cv2 import ROTATE_180
 from cv2 import ROTATE_90_COUNTERCLOCKWISE
 # check the opencv version
 print(cv2.__version__)
-# TODO load an image with image reading modes using 'imread'
+# load an image with image reading modes using 'imread'
 # cv2.IMREAD_UNCHANGED  - If set, return the loaded image as is (with alpha
 #                         channel, otherwise it gets cropped). Ignore EXIF
 #                         orientation.
