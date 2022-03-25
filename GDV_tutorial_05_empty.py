@@ -12,7 +12,7 @@ print(width, height)
 
 # TODO create helper variables for drawing and writing text
 # thickness
-thick = 15
+thick = 10
 thin = 3
 
 # color
@@ -66,21 +66,22 @@ while True:
                           font_small, black, thin)
 
 # TODO (in loop) draw a rectangle that moves on a circular path
-    timer += 0.1
-    pt1 = circle_path(timer, 100, 300)
-    size = (20, 20)
-    pt2 = tuple(map(operator.add, pt1, size))
-    img = cv2.rectangle(img, pt1, pt2, red, thin)
+        timer += 0.1
+        pt1 = circle_path(timer, 100, 300)
+        size = (20, 20)
+        pt2 = tuple(map(operator.add, pt1, size))
+        img = cv2.rectangle(img, pt1, pt2, red, thin)
 
 # TODO (in loop) display the image
-    cv2.imshow("Video", img)
+        cv2.imshow("Video", img)
 
 # TODO (in loop) press q to close the window
-    if cv2.waitKey(10) == ord("q"):
-        break
-    else:
-        print("Could not get the video")
-        break
+        if cv2.waitKey(10) == ord("q"):
+            break
+        else:
+            print("Could not get the video")
+            break
 
 # TODO release the video capture object and window
 cap.release()
+cv2.destroyAllWindows()
