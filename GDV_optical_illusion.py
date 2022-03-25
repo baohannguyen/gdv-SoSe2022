@@ -6,7 +6,7 @@ import numpy as np
 
 # Function for the Circle Path
 def circle_path(t, scale, offsetY, offsetX):
-    res = (int(scale*math.cos(t)+offsetX), 
+    res = (int(scale*math.cos(t)+offsetX),
            int(scale*math.sin(t)+offsetY))
     return res
 
@@ -17,6 +17,8 @@ height = 100
 width = 256
 
 # Creating empty 256x100 Grayscale image
+# Bild ist von Beginn an schwarz
+# heigt, width, Anzahl der Farbfelder die man benutzen möchte
 img = np.zeros((height, width, 1), np.uint8)
 
 # Timer value and incrementing speed
@@ -32,6 +34,7 @@ img_array = []
 # Loop for Displaying the frames
 while (True):
     # Creating the Gradient
+    # Farbe wird erstellt
     for i in range(height):
         for j in range(width):
             img[i][j] = j
@@ -44,15 +47,16 @@ while (True):
     width2 = img_alt.shape[1]
 
     # Note to remember: IMG[von-höhe:bis-höhe, von-breite:bis-breite]
-   
+
     # 4x4-Area copied
     small_square = img_alt[height2//2-2:height2//2+2,
                            width2//2-2:width2//2+2]
 
-    # Scaling the 4x4-area to 50x50                    
+    # Scaling the 4x4-area to 50x50                  
     small_square = cv2.resize(small_square, (0, 0), fx=12.5, fy=12.5)
 
     # Getting the circle path
+    # Box bewegt sich eigentlich im Kreis
     pt1 = circle_path(timer, 600, -300, width2//2-20)
 
     # Scaling and Mapping to a 50x50 box
@@ -81,6 +85,7 @@ while (True):
     # imgu = cv2.rectangle(imgu, pt1x2, pt2x2, int(gray), cv2.FILLED )
 
     # Extra Boxes in the Left and Right Corner
+    # rechte und linke Box wird erstellt
     img_alt[50:100, 50:100] = small_square
     img_alt[50:100, width2-100:width2-50] = small_square
 
