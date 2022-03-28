@@ -33,17 +33,36 @@ font = cv2.FONT_HERSHEY_SIMPLEX
 
 
 # TODO define  RGB colors as variables
+red = (255, 0, 0)
+green = (0, 255, 0)
+blue = (0, 0, 255)
 
 
 # exemplary color conversion (only for the class), tests usage of cv2.cvtColor
 
-# color ranges, TODO enter found default values and uncomment
-# hue =
+# TODO enter found default values and uncomment
+hue = 120
+# ungefähr im Blau-Bereich
 hue_range = 10
-# saturation =
-saturation_range = 100
-# value =
-value_range = 100
+saturation = 200
+saturation_range = 10
+value = 200
+# ist eher im hellen Bereich
+value_range = 10
+
+
+# implement the callback to pick the color on double click
+# es wird was ausgerufen und man bekommt die Funktion zurück
+def color_picker(event, x, y, flags, param):
+    # mit dem color picker werden die Farbwerte ausgegeben
+    global hue, saturation, value
+    if event == cv2.EVENT_LBUTTONDBLCLK:
+        (h, s, v) = hsv[y, x]
+        hue = int(h)
+        saturation = int(s)
+        value = int(v)
+        print('New color selected:', (hue, saturation, value))
+
 
 while True:
     # get video frame (always BGR format!)
@@ -55,22 +74,43 @@ while True:
         # TODO draw arrows (coordinate system)
 
         # TODO computing color ranges for display
-
+        lower_hue = hue - hue_range
+        lower_saturation = saturation - saturation_range
+        lower_value = value - value_range
+        lower_bound = (lower_hue, lower_saturation, lower_value)
+        upper_hue = hue + hue_range
+        upper_saturation = saturation + saturation_range
+        upper_value = value + value_range
+        upper_bound = (upper_hue, upper_saturation, upper_value)
+                             
         # TODO draw selection color circle and text for HSV values
 
         # TODO convert to HSV
+        hsv = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
 
         # TODO create a bitwise mask
+        mask = cv2.inRange(hsv, lower_bound, upper_bound)
 
         # TODO apply mask
+        masked_lag = cv2.bitwise_and(img, img, mask=mask)
 
-        # TODO show the original image with drawings in one window
+        # show the original image with drawings in one window
+        title = "Original Bild von der Kamera"
+        cv2.namedWindow(title, cv2.WINDOW_GUI_NORMAL)
+        cv2.setMouseCallback(title, color_picker)
+        # Name des Fensters und die Funktion angeben
+        cv2.imshow(title, img)
 
         # TODO show the masked image in another window
+        cv2.imshow("Maske", mask)
 
         # TODO show the mask image in another window
+        cv2.imshow("Maskes", masked_lag)
 
         # TODO deal with keyboard input
+        key = cv2.waitKey(10)
+        if (key == ord("q")):
+            break
 
     else:
         print('Could not start video camera')
