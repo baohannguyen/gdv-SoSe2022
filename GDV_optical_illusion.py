@@ -52,7 +52,7 @@ while (True):
     small_square = img_alt[height2//2-2:height2//2+2,
                            width2//2-2:width2//2+2]
 
-    # Scaling the 4x4-area to 50x50                  
+    # Scaling the 4x4-area to 50x50    
     small_square = cv2.resize(small_square, (0, 0), fx=12.5, fy=12.5)
 
     # Getting the circle path
