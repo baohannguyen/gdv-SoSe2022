@@ -88,6 +88,7 @@ while True:
         cv2.imshow("Video", img)
 
 # (in loop) press q to close the window
+# 10 wegen 10 millisekunden
         if cv2.waitKey(10) == ord("q"):
             break
         else:

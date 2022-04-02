@@ -4,6 +4,7 @@ import cv2
 # capture webcam image
 cap = cv2.VideoCapture(0)
 # Indesx 0 ist Standard für Laptops; Zugriff auf die Webcam
+# 0 heißt auch das nur auf einer Kamera zugegriffen wird
 # get camera image parameters from get()
 width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
 height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
@@ -20,6 +21,9 @@ while True:
     if (ret):
         # (in loop) create four flipped tiles of the image
         img = np.zeros(frame.shape, np.uint8)
+        # uint8 = unsigned integer 8-Bits = Typ des Arrays
+        # np.zeros füllt das Array mit der Zahl 0
+        # Bild ist dann von Anfang an schwarz
 # (in loop) display the image
 # Bild wird immer wieder angezeigt bis man auf "q" klickt
         cv2.imshow(title, frame)
