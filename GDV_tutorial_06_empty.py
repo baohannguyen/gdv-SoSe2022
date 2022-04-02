@@ -32,7 +32,7 @@ font_size_smaller = .6
 font = cv2.FONT_HERSHEY_SIMPLEX
 
 
-# TODO define  RGB colors as variables
+# define  RGB colors as variables
 red = (255, 0, 0)
 green = (0, 255, 0)
 blue = (0, 0, 255)
@@ -82,17 +82,28 @@ while True:
         upper_saturation = saturation + saturation_range
         upper_value = value + value_range
         upper_bound = (upper_hue, upper_saturation, upper_value)
-                             
+
         # TODO draw selection color circle and text for HSV values
 
-        # TODO convert to HSV
-        hsv = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+        # convert to HSV
+        # hsv = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+        hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
+        # BGR wird zu HSV konvertiert
 
-        # TODO create a bitwise mask
+        # create a bitwise mask
+        # mask ist ein Teil/Abschnitt von dem Bild
         mask = cv2.inRange(hsv, lower_bound, upper_bound)
+        # Maske sagt im Bild welche Pixel wir behalten sollen und welche nicht
+        # Ein neues Bild/Abschnitt, wo nur die lower/upper bound
+        # Pixel angezeigt werden
 
-        # TODO apply mask
+        # apply mask
         masked_lag = cv2.bitwise_and(img, img, mask=mask)
+        # Eigentlich werden zwei Bilder vermischt und die Maske wird benutzt
+        # um zu schauen welche Pixel man behalten soll und welche nicht
+        # Aber in dem Fall werden die Bits in der Maske mit den Bits
+        # in unserem Bild verglichen und die MAske sagt dann welche Pixel wir
+        # behalten und welche nicht
 
         # show the original image with drawings in one window
         title = "Original Bild von der Kamera"
@@ -101,13 +112,13 @@ while True:
         # Name des Fensters und die Funktion angeben
         cv2.imshow(title, img)
 
-        # TODO show the masked image in another window
+        # show the masked image in another window
         cv2.imshow("Maske", mask)
 
-        # TODO show the mask image in another window
+        # show the mask image in another window
         cv2.imshow("Maskes", masked_lag)
 
-        # TODO deal with keyboard input
+        # deal with keyboard input
         key = cv2.waitKey(10)
         if (key == ord("q")):
             break
