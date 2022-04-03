@@ -52,7 +52,10 @@ while (True):
     # Note to remember: IMG[von-höhe:bis-höhe, von-breite:bis-breite]
 
     # 4x4-Area copied
-    # Felix fragen!
+    # 4x4 quadrat wird aus der Mitte des Bildes genommen (width//2 & height//2)
+    # und von der Mitte 2 nach oben, 2 nach unten, 2 nach rechts und 2 nach
+    # links, dadurch erhält man das quadrat in der Mitte
+
     small_square = img_alt[height2//2-2:height2//2+2,
                            width2//2-2:width2//2+2]
 
@@ -63,6 +66,7 @@ while (True):
     # Getting the circle path
     # Box bewegt sich im Kreis
     pt1 = circle_path(timer, 600, -300, width2//2-20)
+    # 600 = Radius
 
     # Scaling and Mapping to a 50x50 box
     size = (50, 50)
@@ -80,7 +84,7 @@ while (True):
     # Check if the box should turn around
     # Bewegungsrichtung wird bestimmt
     # Timer wird passend dazu geändert
-    # Felix fragen
+
     if (timer <= -5.6 or timer >= -3.8):
         timer_increment = -timer_increment
 
