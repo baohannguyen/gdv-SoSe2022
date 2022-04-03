@@ -87,7 +87,9 @@ while (True):
 
     if (timer <= -5.6 or timer >= -3.8):
         timer_increment = -timer_increment
-
+        # Die Zahlen geben den Zeitpunkt auf dem Kreis an, den wir als
+        # Position nutzen
+        # -5.6 auf der linken Seite & -3.8 auf der rechten Seite
     # Timer increamenting
     timer += timer_increment
 
