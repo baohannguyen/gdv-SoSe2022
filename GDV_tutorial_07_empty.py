@@ -26,7 +26,38 @@ mask = cv2.inRange(hsv, lower_green, upper_green)
 
 # TODO morphological operations code
 
+
+# die formen werden angelegt
+def morph_shape(val):
+    if val == 0:
+        return cv2.MORPH_RECT
+    elif val == 1:
+        return cv2.MORPH_CROSS
+    elif val == 2:
+        return cv2.MORPH_ELLIPSE
+
+# wissen wie es funktionieren soll
+
+
+def erosion(img, shape, size):
+    kernel: cv2.getStructuringElement(shape, (2 * size + 1, 2 * size + 1),
+                                      (size, size))
+    return cv2.erode(img, kernel)
+
+
+def dilation(img, shape, size):
+    kernel: cv2.getStructuringElement(shape, (2 * size + 1, 2 * size + 1),
+                                      (size, size))
+    return cv2.dilate(img, kernel)
+
+
+def opening(img, shape, size):
+    kernel: cv2.getStructuringElement(shape, (2 * size + 1, 2 * size + 1),
+                                      (size, size))
+    return cv2.morphologyEx(img, cv2.MORPH_OPEN, kernel)
 # TODO find connected components
+connectivity = 4
+
 
 # TODO go through all (reasonable) found connected components
 
