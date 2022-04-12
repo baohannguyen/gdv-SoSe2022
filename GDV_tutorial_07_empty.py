@@ -43,6 +43,7 @@ def erosion(img, shape, size):
     kernel: cv2.getStructuringElement(shape, (2 * size + 1, 2 * size + 1),
                                       (size, size))
     return cv2.erode(img, kernel)
+    # Methode gibt zwei Werte zurück (Bild & Kernel)
 
 
 def dilation(img, shape, size):
@@ -55,8 +56,9 @@ def opening(img, shape, size):
     kernel: cv2.getStructuringElement(shape, (2 * size + 1, 2 * size + 1),
                                       (size, size))
     return cv2.morphologyEx(img, cv2.MORPH_OPEN, kernel)
+    # source, type of morph operation (opening), kernel
 # TODO find connected components
-connectivity = 4
+
 
 
 # TODO go through all (reasonable) found connected components
