@@ -28,6 +28,7 @@ def load_Image(imgNumber):
         imgNumber = len(images)
     print(imgNumber)
     # da wird der bildname mit der jeweiligen nummer eingespeichert
+    # Bildnummer wird in der Konsole gedruckt
     img = images[imgNumber-1]
     # If set, always convert image to the 3 channel BGR  color image
     # cv2.IMREAD_COLOR
@@ -65,7 +66,7 @@ colorArray = [
     Color('Red-Alt', 165, 10, 205, 100, 155, 100, 2, 0.5, ['']),
     Color('Pink-Alt', 170, 10, 30, 40, 255, 40, 2, 0.5, ['']),
     Color('White-alt', 0, 1, 0, 1, 255, 3, 0, 0.5, ['dilation', 'dilation', 'erosion', 'erosion', 'erosion', 'erosion', 'erosion', 'dilation', 'dilation',
-         'dilation'])]
+          'dilation'])]
 # die verschiedenen werte und filter der farben
 
 # get starting values
@@ -80,9 +81,10 @@ value_range = colorArray[collorNumber].Value_Range
 filterList = colorArray[collorNumber].Filter
 shape = colorArray[collorNumber].Shape
 expected_roundness = colorArray[collorNumber].Roundness
-#startwerte
+# startwerte
 
 # get all images
+# Bilder werden mit der glob library in das Array importiert
 images = [cv2.imread(file, cv2.IMREAD_COLOR) for file in glob.glob('images\\chewing_gum_balls**.jpg')]
 
 imgNumber = 1
@@ -101,6 +103,7 @@ def morph_shape(val):
     elif val == 2:
         return cv2.MORPH_ELLIPSE
 # die verschiedenen Formen der morphologischen Methoden
+
 
 kernel_size = 3
 kernel_shape = morph_shape(shape)
@@ -133,8 +136,6 @@ def closing(img, size, shape):
 
 # kernel_size = 3
 # kernel_shape = morph_shape(0)
-
-
 
 
 # masknames = ['original', 'opening', 'closing', 'dilatation', 'erosion'] 
@@ -283,7 +284,7 @@ while True:
         print('Shape : '+str(shape))
         print('Roundness : '+str(expected_roundness))
         print('Filter: '+str(filterList))
-        # farbwerte werden ausgedruckt
+        # HSV-Farbwerte und Filter werden ausgedruckt
 
 cv2.destroyAllWindows()
 # beendet das programm
