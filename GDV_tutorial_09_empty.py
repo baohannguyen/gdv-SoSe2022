@@ -8,13 +8,13 @@ import time
 def convolution_with_opencv(image, kernel):
     # flip the kernel as opencv filter2D function is a
     # correlation not a convolution
-
+    kernel = cv2.flip(kernel, -1)
+    ddepth = -1
+    output = cv2.filter2D(image, ddepth, kernel)
     # when ddepth=-1, the output image will have the same depth as the source.
-
     # run filtering
-
     # return result
-    return result
+    return output
 
 
 def show_kernel(kernel):
@@ -26,6 +26,7 @@ def show_kernel(kernel):
     # scale kernel to make it visually more appealing
     kernel_img = cv2.normalize(
         kernel, kernel, 0, 255, cv2.NORM_MINMAX, cv2.CV_8UC1)
+    # 0-255 = max. Wert in einem Array (höher oder tiefer geht es nicht)
     cv2.imshow(title_kernel, kernel_img)
     cv2.waitKey(0)
 
@@ -55,14 +56,17 @@ image_name = 'images/Bumbu_Rawon.jpg'
 image = cv2.imread(image_name, cv2.IMREAD_GRAYSCALE)
 # image = cv2.resize(image, (320,213))
 
-# TODO define kernel
-# TODO define kernel size
+# define kernel size
+kernel_size = 15
+# define kernel
 
-# TODO define Gaussian standard deviation (sigma). If it is non-positive,
+# define Gaussian standard deviation (sigma). If it is non-positive,
+sigma = 4
+kernel1D = cv2.getGaussianKernel(kernel_size, sigma)
+# damit kriegt man erstmal die spalten raus
+kernel = np.transpose(kernel1D) * kernel1D
 # it is computed from kernel_size as
 # sigma = 0.3*((ksize-1)*0.5 - 1) + 0.8
-
-# TODO create the kernel with OpenCV
 
 # visualize the kernel
 show_kernel(kernel)
@@ -81,4 +85,3 @@ print('Computing the convolution of an image with a resolution of',
 
 # show the original and the resulting image
 show_resulting_images(image, result)
-

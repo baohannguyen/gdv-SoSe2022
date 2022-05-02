@@ -7,15 +7,19 @@ window_width = 640
 window_height = 480
 
 # TODO implement the function get_frequencies(image):
-# convert image to floats and do dft saving as complex output
-
+def get_frequencies(image):
+# convert image to floats and do dft saving as complex output (cv2.dft, np.fft)
+# dft = discrete fourier transformation
+dft = cv2.dft(np.float32(image), flags=cv2.DFT_COMPLEX_OUTPUT)
 # apply shift of origin from upper left corner to center of image
-
+dft_shift = np.fft.fftshift(dft)
+# Frequenzspektrum wurde in der Mitte geschoben
 # extract magnitude and phase images
-
+magnitude, phase = cv2.cartToPolar(dft_shift[:, :, 0], dft_shift[:, :, 1])
 # get spectrum for viewing only
-
+spectrum = ((1/20) * np.log(magnitude))
 # Return the resulting image (as well as the magnitude and phase for the inverse)
+return magnitude, phase, image
 
 
 # TODO implement the function create_from_spectrum():
