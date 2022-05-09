@@ -10,6 +10,7 @@ rows, cols, dims = img.shape
 T_translation = np.float32([
     [1, 0, 100],
     [0, 1, 50]
+    # in eine affine transformation ist die letzte zeile immer 001
 ])
 print('\nTranslation\n', '\n'.join(
     ['\t'.join(['%03.3f' % cell for cell in row]) for row in T_translation]))
