@@ -3,7 +3,10 @@ import numpy as np
 import cv2
 
 # TODO Define a function that detects and draws corners into the image
+def detect_draw(corners):
     # drawing helper variables
+thick = 10
+thin = 4
 
     # get a different color array for each of the features/corners
 
