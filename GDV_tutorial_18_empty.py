@@ -31,16 +31,23 @@ print('Loading images done.')
 cv2.waitKey(0)
 
 ''' do the feature detection with SIFT '''
-# TODO Create a SIFT detector for 500 features (see https://docs.opencv.org/4.5.3/d7/d60/classcv_1_1SIFT.html#ad337517bfdc068ae0ba0924ff1661131)
-
+# Create a SIFT detector for 500 features (see https://docs.opencv.org/4.5.3/d7/d60/classcv_1_1SIFT.html#ad337517bfdc068ae0ba0924ff1661131)
+detector = cv2.SIFT_create(nfeatures=500)
 
 # Detect features and compute descriptors in both images
 keypoints_obj, descriptors_obj = 'tbd'
 keypoints_table, descriptors_table = 'tbd'
 
-# TODO Draw detected feature points in both images and show them
+# Draw detected feature points in both images and show them
 # see (https://docs.opencv.org/4.5.3/d4/d5d/group__features2d__draw.html#ga5d2bafe8c1c45289bc3403a40fb88920)
-
+img_object = cv2.drawKeypoints(
+    img_obj_gray, keypoints_obj, img_object,
+    flags=cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS
+)
+img_table = cv2.drawKeypoints(
+    img_table_gray, keypoints_table, img_table,
+    flags=cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS
+)
 
 cv2.imshow(window_object, img_object)
 cv2.imshow(window_table, img_table)
@@ -48,8 +55,9 @@ print('Feature detection done.')
 cv2.waitKey(0)
 
 ''' do the feature matching with a brute force matcher '''
-# TODO Initialize and run BFMatcher with default params (see https://docs.opencv.org/4.5.3/d3/da1/classcv_1_1BFMatcher.html#abe0bb11749b30d97f60d6ade665617bd)
-
+# Initialize and run BFMatcher with default params (see https://docs.opencv.org/4.5.3/d3/da1/classcv_1_1BFMatcher.html#abe0bb11749b30d97f60d6ade665617bd)
+bf = cv2.BFMatcher()
+matches = bf.knnMatch(descriptors_obj, descriptors_table, k=2)
 
 # store all the good matches as per Lowe's ratio test.
 good = []
@@ -58,7 +66,7 @@ for m, n in matches:
         good.append([m])
 
 # TODO Draw matches with cv2.drawMatchesKnn 
-img_matching = cv2.drawMatchesKnn...
+img_matching = cv2.drawMatchesKnn(img_object, keypoints_obj, img_table, keypoints_table, good, None, flags=cv2.DrawMatchesFlags_NOT_DRAW_SINGLE_POINTS)
 window_matching = 'Matching'
 cv2.namedWindow(window_matching)
 cv2.resizeWindow(window_matching, img_matching.shape[0], img_matching.shape[1])

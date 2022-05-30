@@ -1,4 +1,4 @@
-# inspired from https://docs.opencv.org/4.x/dc/dc3/tutorial_py_matcher.html
+q# inspired from https://docs.opencv.org/4.x/dc/dc3/tutorial_py_matcher.html
 import cv2
 import numpy as np
 
@@ -59,6 +59,7 @@ cv2.waitKey(0)
 ''' do the feature matching with a brute-force matcher  '''
 bf = cv2.BFMatcher()
 matches = bf.knnMatch(descriptors_obj, descriptors_table, k=2)
+# ist dazu da um die Methode aufzurufen
 
 # store all the good matches as per Lowe's ratio test.
 good = []
