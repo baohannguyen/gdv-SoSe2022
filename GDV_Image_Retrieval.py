@@ -22,6 +22,8 @@ click_x = 0
 click_y = 0
 endApp = False
 # Click Function, to Select an Image to display
+# Mouse-callback, wenn man auf ein Bild draufklickt, wird es
+# in dem "Tile Image" fenster angezeigt
 def click(event, x, y, flags, param):
     global click_x
     global click_y
@@ -32,8 +34,8 @@ def click(event, x, y, flags, param):
 
 
 # Setting up the Training Data
-file_name = '.Abgabe 4/data/data'
-root_path = '.Abgabe 4/data/101_ObjectCategories/'
+file_name = './Abgabe 4/data/data'
+root_path = './Abgabe 4/data/101_ObjectCategories/'
 
 trainData = TrainingSet(root_path)
 
@@ -110,18 +112,21 @@ if not endApp:
     descr = trainData.descriptor
 
     # Matching a tile to a Picture
+    # für jeden Kachel wird ein passendes Bild gesucht
     for i in range(len(imgArray)):
         newcomer = np.ndarray(shape=(1, descr.getSize()),
-                        buffer = np.float32(descr.compute(imgArray[i])),
-                        dtype = np.float32)
+                buffer= np.float32(descr.compute(imgArray[i])),
+                dtype= np.float32)
         idx = findBestMatch(trainData, newcomer)
 
         # Reading hte Picture
         matchedImage = cv2.imread(trainData.getFilenameFromIndex(idx), cv2.IMREAD_COLOR)
 
-        # Resizing and addihng the picture to 2 lists
+        # Resizing and adding the picture to 2 lists
         bestMatchedImages.append(cv2.resize(matchedImage, (16, 16)))
+        # 1D-Array = da werden die Bilder in 16x16 geändert und gespeichert
         bestMatchedImagesPart.append(matchedImage)
+        # 2D-Array = da werden die Bilder in ihrer originalen Auflösung gespeichert
         if(i % 50 == 0 and i > 0):
             # Creating a 2d List
             bestMatchedImagesFull.append(bestMatchedImagesPart)
@@ -143,9 +148,11 @@ if not endApp:
     j = 0
 
     # Replacing the Tiles with the Pictures
+    # die 16x16 Bilder werden je Zeile und Spalten hinzugefügt
     for i in range(50):
         for k in range(50):
             newCompletedImage[i*16:i*16+16, k*16:k*16+16] = bestMatchedImages[j]
+            # nachfragen!!!
             j = j+1
 
     # Displaying the Images
@@ -164,7 +171,7 @@ if not endApp:
 
         # Save Function
         if (key == ord("t")):
-            cv2.imwrite("Exercise 4/bilder/Mosaik.png", newCompletedImage)
+            cv2.imwrite("Abgabe 4/bilder/Mosaik.png", newCompletedImage)
 
         # Displaying the Clicked Image
         if(click_x <= 49 and click_y <= 49):

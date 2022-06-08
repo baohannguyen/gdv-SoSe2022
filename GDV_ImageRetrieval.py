@@ -17,9 +17,9 @@ def findBestMatch(trainData, sample):
 
 
 ''' Define and compute or load the training data '''
-root_path = './data/101_ObjectCategories/'  # adjust this path if you have the files in some other folder
+root_path = './Abgabe 4/data/101_ObjectCategories/'  # adjust this path if you have the files in some other folder
 # root_path = './data/temp/'  # you can use a smaller subset of the training data during development to save time
-file_name = './data/data.npz'
+file_name = './Abgabe 4/data/data.npz'
 trainData = TrainingSet(root_path)
 # either create and save the data
 trainData.createTrainingData(Descriptor.TINY_GRAY4)
@@ -29,7 +29,7 @@ trainData.saveTrainingData(file_name)
 
 # exemplary test image to check the implementation. As it is part of the
 # data set, the best match in the data set needs to be the same image.
-newImg = cv2.imread('data/101_ObjectCategories/airplanes/image_0005.jpg', cv2.IMREAD_COLOR)
+newImg = cv2.imread('Abgabe 4/data/101_ObjectCategories/airplanes/image_0005.jpg', cv2.IMREAD_COLOR)
 # alternatively use another image and find the best match
 # newImg = cv2.imread('images/butterfly.jpg', cv2.IMREAD_COLOR)
 cv2.imshow('query image', newImg)
