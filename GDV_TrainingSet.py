@@ -7,7 +7,7 @@ from enum import Enum
 
 class Descriptor(Enum):
     ''' Define available descriptors '''
-    TINY_GRAY4, TINY_GRAY8, TINY_COLOR4, TINY_COLOR8 = range(4)
+    TINY_GRAY4, TINY_GRAY8, TINY_COLOR4, TINY_COLOR8, TINY_COLOR_PIXEL, TINY_COLOR16 = range(6)
 
     ''' Compute the descriptor vector '''
     def compute(self, img):
@@ -25,6 +25,12 @@ class Descriptor(Enum):
         if (self is Descriptor.TINY_COLOR8):
             return np.ravel(cv2.resize(img, (8, 8)))
 
+        if (self is Descriptor.TINY_COLOR16):
+            return np.ravel(cv2.resize(img, (16, 16)))
+
+        if (self is Descriptor.TINY_COLOR_PIXEL):
+            return np.ravel(cv2.resize(img, (1, 1)))
+
     ''' Get the length of the descriptor vector '''
     def getSize(self):
         if (self is Descriptor.TINY_GRAY4):
@@ -38,6 +44,12 @@ class Descriptor(Enum):
 
         if (self is Descriptor.TINY_COLOR8):
             return 8*8*3
+
+        if (self is Descriptor.TINY_COLOR16):
+            return 16*16*3
+
+        if (self is Descriptor.TINY_COLOR_PIXEL):
+            return 1*1*3
 
 
 class TrainingSet:
@@ -123,6 +135,10 @@ class TrainingSet:
             self.descriptor = Descriptor.TINY_COLOR4
         elif str(descriptor_name) == 'TINY_COLOR8':
             self.descriptor = Descriptor.TINY_COLOR8
+        elif str(descriptor_name) == 'TINY_COLOR16':
+            self.descriptor = Descriptor.TINY_COLOR16
+        elif str(descriptor_name) == 'TINY_COLOR_PIXEL':
+            self.descriptor = Descriptor.TINY_COLOR_PIXEL
         else:
             print('ERROR: Unknown descriptor')
         print('Loaded training data:')
