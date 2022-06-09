@@ -23,7 +23,7 @@ click_y = 0
 endApp = False
 # Click Function, to Select an Image to display
 # Mouse-callback, wenn man auf ein Bild draufklickt, wird es
-# in dem "Tile Image" fenster angezeigt
+# in dem "Tile Image" fenster größer angezeigt
 def click(event, x, y, flags, param):
     global click_x
     global click_y
@@ -34,16 +34,18 @@ def click(event, x, y, flags, param):
 
 
 # Setting up the Training Data
+# Pfad muss man entsprechend ändern
 file_name = './Abgabe 4/data/data'
 root_path = './Abgabe 4/data/101_ObjectCategories/'
 
 trainData = TrainingSet(root_path)
 
 # Loading the Image for the Selction Prozess
+# Bild für das Mosaik wird hochgeladen
 imgForMosaic = cv2.imread('Abgabe 4/bilder/cat2.png', cv2.IMREAD_COLOR)
 imgForMosaic = cv2.resize(imgForMosaic, (800, 800))
 
-# Displaying the Original Iamge for the key input
+# Displaying the Original Image for the key input
 cv2.namedWindow("Original Image", cv2.WINDOW_AUTOSIZE)
 cv2.imshow("Original Image", imgForMosaic)
 
@@ -59,11 +61,13 @@ while not gotSelected:
     key = cv2.waitKey(0) & 0xFF
 
     # Quitting
+    # mit Q beendet man das Programm
     if (key == ord("q")):
         endApp = True
         break
 
     # Selection and Selection Printing
+    # mit W und S kann man den gewünschten Descriptor auswählen
     elif (key == ord("w") or (key == ord("s"))):
         if (key == ord("w")):
             selectedDiscriptor = selectedDiscriptor+1
@@ -87,6 +91,7 @@ if not endApp:
         # Decide if you want to Train or Load the Data
         print("If you want to load the training data press R otherwise press any other key")
         key = cv2.waitKey(0) & 0xFF
+        # mit R oder eine andere Taste werden alle Bilder hochgeladen
         if (key == ord("r")):
             trainData.loadTrainingData(file_name)
         else:
@@ -102,6 +107,10 @@ if not endApp:
     for i in range(50):
         for k in range(50):
             imgArray.append(imgForMosaic[i*16:i*16+16, k*16:k*16+16])
+            # das Bild wird in 2500 kleine Bilder, 16x16 groß, geteilt
+            # damti das passiert muss man die positionen i und k mit 16 multiplizieren
+            # +16 beschreibt die länge des bildes
+            # [von höhe: bis höhe, von breite: bis breite]
 
     bestMatchedImages = []
     bestMatchedImagesFull = []
@@ -119,7 +128,7 @@ if not endApp:
                 dtype= np.float32)
         idx = findBestMatch(trainData, newcomer)
 
-        # Reading hte Picture
+        # Reading the Picture
         matchedImage = cv2.imread(trainData.getFilenameFromIndex(idx), cv2.IMREAD_COLOR)
 
         # Resizing and adding the picture to 2 lists
@@ -152,7 +161,6 @@ if not endApp:
     for i in range(50):
         for k in range(50):
             newCompletedImage[i*16:i*16+16, k*16:k*16+16] = bestMatchedImages[j]
-            # nachfragen!!!
             j = j+1
 
     # Displaying the Images
