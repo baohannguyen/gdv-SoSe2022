@@ -11,6 +11,7 @@ with open('models/object_detection_classes_coco.txt',
           ) as f:
     class_names = f.read().split('\n')
 # DEBUG: print(class_names)
+print(class_names)
 
 # generate a different color array for each of the classes
 colors = np.random.uniform(0, 255, size=(len(class_names), 3))
